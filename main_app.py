@@ -116,13 +116,63 @@ class Page2Scr(Screen):
            else:
                self.manager.current = 'page3'
                
+class Page3Scr(Screen):
+    def __init__(self, **kwargs ):
+        super().__init__(**kwargs )
+        
+        lb = Label(text = txt_sits)
+        self.btn = Button(text = "Продовжити", size_hint = (0.5,0.3), pos_hint = {"center_x":0.5})
+        self.btn.on_press = self.next
+        mane_line = BoxLayout(orientation = "vertical")
+        mane_line.add_widget(lb)
+        mane_line.add_widget(self.btn)
+        self.add_widget(mane_line)
+        
+    def next(self):
+        self.manager.current = "page4"
 
-       
+class Page4Scr(Screen):
+    def __init__(self, **kwargs ):
+        super().__init__(**kwargs )
+        
+        self.next_screen = False
+
+        instr = Label(text = txt_test3)
+        self.lb_sec = Seconds(1)
+
+        lb_result = Label(text = "Результат:",halign='right')
+        self.in_result = TextInput(text = "0", multiline= False, padding = 0)
+        line = BoxLayout( size_hint=(0.8, 0.2), )
+        line.add_widget(lb_result)
+        line.add_widget(self.in_result)
+        
+        lb_result2 = Label(text = "Результат:",halign='right')
+        self.in_result2 = TextInput(text = "0", multiline= False, padding = 0)
+        line2 = BoxLayout( size_hint=(0.8, 0.2), )
+        line2.add_widget(lb_result2)
+        line2.add_widget(self.in_result2)
+        
+        self.btn = Button(text="Почати", size_hint = (0.3,0.5), pos_hint = {"center_x" : 0.5} )
+        main_l2 = BoxLayout(orientation = "vertical", spacing = 13)
+        main_l2.add_widget(instr)
+        main_l2.add_widget(self.lb_sec)
+        main_l2.add_widget(line)
+        main_l2.add_widget(line2)
+
+        main_l2.add_widget(self.btn)
+        
+        
+        self.add_widget(main_l2)
+
+
 class HeartCheck(App):
    def build(self):
         sm = ScreenManager()
         sm.add_widget(page1(name='page1'))
         sm.add_widget(Page2Scr(name='page2'))
+        sm.add_widget(Page3Scr(name = "page3"))
+        sm.add_widget(Page4Scr(name = "page4"))
+
         return sm
        
 app = HeartCheck()
